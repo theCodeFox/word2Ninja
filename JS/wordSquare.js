@@ -7,9 +7,14 @@
 // S E N D
 // E N D S
 
-// exported function
+// dictionary
+const fs = require('fs');
+const text = fs.readFileSync('./dictionary.txt').toString('utf-8');
+const dictionary = text.split('\n')
+
+// main function
 function wordSquare(input='') {
-  
+  // handles empty string
   if(input === '') {
     return ''
   }
@@ -19,7 +24,7 @@ function wordSquare(input='') {
   const letters = input.replace(/[^a-zA-Z]/g,'')
 
   // basic error handling
-  if (letters.length !== squareNumber*squareNumber) {
+  if(letters.length !== squareNumber*squareNumber) {
     return `You have requested a word square ${squareNumber}x${squareNumber}. Please enter ${squareNumber*squareNumber} letters.`
   }
 
@@ -31,9 +36,9 @@ function wordSquare(input='') {
     return newLetter
   })
   joinedWordSquare = wordArr.join('')
-  
-  console.log(joinedWordSquare)
+
+  // console.log(joinedWordSquare)
   return joinedWordSquare;
 }
 
-module.exports = wordSquare;
+module.exports = { wordSquare,dictionary };
