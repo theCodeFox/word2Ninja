@@ -4,8 +4,9 @@
 // input: 5 aabbeeeeeeeehmosrrrruttvv
 // input: 7 aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy
 
-const sum = require('./wordSquare');
+const wordSquare = require('./wordSquare');
 
 test('adds 1 + 2 to equal 3', () => {
-  expect(sum(1, 2)).toBe(3);
+  expect(wordSquare(1, 2)).toBe(3);
 });
+
