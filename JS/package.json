@@ -1,0 +1,18 @@
+{
+  "name": "work2ninja",
+  "author": "theCodeFox",
+  "version": "1.0.0",
+  "description": "work square challenge",
+  "main": "wordSquare.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/theCodeFox/word2Ninja.git"
+  },
+  "devDependencies": {
+    "jest": "^26.6.3"
+  },
+  "homepage": "https://github.com/theCodeFox/word2Ninja#readme"
+}
