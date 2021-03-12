@@ -7,19 +7,32 @@
 // S E N D
 // E N D S
 
-function wordSquare(letters='',number) {
-  if(letters === '') {
+// exported function
+function wordSquare(input='') {
+  
+  if(input === '') {
     return ''
   }
+
+  // split input into necessary components
+  const squareNumber = parseInt(input.split(' ')[0])
+  const letters = input.replace(/[^a-zA-Z]/g,'')
+
+  // basic error handling
+  if (letters.length !== squareNumber*squareNumber) {
+    return `You have requested a word square ${squareNumber}x${squareNumber}. Please enter ${squareNumber*squareNumber} letters.`
+  }
+
   const splitLetters = letters.split('')
   const wordArr = splitLetters.map((letter,i) => {
-    console.log(letter,i)
-    const newLetter = ((i+1)%number === 0) && i+1 !== splitLetters.length
+    const newLetter = ((i+1)%squareNumber === 0) && i+1 !== splitLetters.length
       ? letter.concat('\n')
       : letter
     return newLetter
   })
   joinedWordSquare = wordArr.join('')
+  
+  console.log(joinedWordSquare)
   return joinedWordSquare;
 }
 
