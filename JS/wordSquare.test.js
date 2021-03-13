@@ -24,23 +24,23 @@ describe('wordSquare', () => {
   });
   test('returns string containing given letters', () => {
     expect(wordSquare('1 a')).toBe('a');
-  })
+  });
   test('returns letters if letters amount of letters given are second arg squared', () => {
     expect(wordSquare('2 onno')).toBe('on\nno');
-  })
+  });
   test('returns error if incorrect number of letters given', () => {
     expect(wordSquare('2 onnoo')).toBe('You have requested a word square 2x2. Please enter 4 letters.');
-  })
+  });
   test('output is valid word square', () => {
     const validOutput = wordSquare('2 noor');
     const invalidOutput = wordSquare('2 abcd');
     expect(validateWordSquare(validOutput)).toBe(true);
     expect(validateWordSquare(invalidOutput)).toBe(false);
-  })
-})
+  });
+});
 
 // tests for possibleWordArr
-describe.only('possibleWordArr', () => {
+describe('possibleWordArr', () => {
   test('returns array', () => {
     expect(possibleWordArr('xxxx',2)).toEqual([]);
   });

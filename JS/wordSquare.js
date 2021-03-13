@@ -16,18 +16,18 @@ const dictionary = text.split('\n')
 const possibleWordArr = (letters,wordLength) => {
   const filteredDictionary = dictionary.filter(word => word.length === wordLength)
   const potentialWords = filteredDictionary.filter((word) => {
-    const matchingLetters = []
+    let matchingLetters = 0
     let letterArr = letters.split('')
     const splitWord = word.split('')
     for(let i = 0;i < splitWord.length;i++) {
       if(letterArr.includes(splitWord[i])) {
-        matchingLetters.push(splitWord[i])
+        matchingLetters++
         const indexToRemove = letterArr.indexOf(splitWord[i])
         letterArr.splice(indexToRemove,1)
       }
     }
-    if(matchingLetters.length === wordLength) {
-      return matchingLetters.join('')
+    if(matchingLetters === wordLength) {
+      return word
     }
   })
   return potentialWords
