@@ -12,8 +12,29 @@ const fs = require('fs');
 const text = fs.readFileSync('./dictionary.txt').toString('utf-8');
 const dictionary = text.split('\n')
 
+// filter dictionary for all possible words
+const possibleWordArr = (letters,wordLength) => {
+  const filteredDictionary = dictionary.filter(word => word.length === wordLength)
+  const potentialWords = filteredDictionary.filter((word) => {
+    const matchingLetters = []
+    let letterArr = letters.split('')
+    const splitWord = word.split('')
+    for(let i = 0;i < splitWord.length;i++) {
+      if(letterArr.includes(splitWord[i])) {
+        matchingLetters.push(splitWord[i])
+        const indexToRemove = letterArr.indexOf(splitWord[i])
+        letterArr.splice(indexToRemove,1)
+      }
+    }
+    if(matchingLetters.length === wordLength) {
+      return matchingLetters.join('')
+    }
+  })
+  return potentialWords
+}
+
 // main function
-function wordSquare(input='') {
+const wordSquare = (input='') => {
   // handles empty string
   if(input === '') {
     return ''
@@ -41,4 +62,4 @@ function wordSquare(input='') {
   return joinedWordSquare;
 }
 
-module.exports = { wordSquare,dictionary };
+module.exports = { wordSquare,possibleWordArr,dictionary };
