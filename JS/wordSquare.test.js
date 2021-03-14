@@ -3,19 +3,70 @@
 // input: 5 aaaeeeefhhmoonssrrrrttttw
 // input: 5 aabbeeeeeeeehmosrrrruttvv
 // input: 7 aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy
-const { wordSquare,possibleWordArr,dictionary } = require('./wordSquare');
+const {
+  wordSquare,
+  possibleWordArr,
+  validateWordSquare,
+  scramble,
+  validScramble,
+  dictionary
+} = require('./wordSquare');
 
-const validateWordSquare = (wordSquareString) => {
-  const wordSquareArr = wordSquareString.split('\n');
-  for(let i = 0;i < wordSquareArr.length;i++) {
-    for(let j = 0;j < wordSquareArr[i].length;j++) {
-      if(wordSquareArr[i][j] !== wordSquareArr[j][i]) {
-        return false
-      }
+
+// tests for scramble
+describe('scramble', () => {
+  test('returns string', () => {
+    expect(scramble('')).toEqual('');
+  });
+  test('returns string of same length as input', () => {
+    expect(scramble('a').length).toEqual(1);
+  });
+  test('returns random string', () => {
+    let countOutput = {
+      'abc':0,
+      'acb':0,
+      'bac':0,
+      'bca':0,
+      'cab':0,
+      'cba':0
+    };
+    for(let i=0;i<1000;i++) {
+      const scrambled = scramble('abc')
+      countOutput[scrambled]++
     }
-  }
-  return true
-};
+    expect(countOutput['abc']).toBeGreaterThan(0);
+    expect(countOutput['acb']).toBeGreaterThan(0);
+    expect(countOutput['bac']).toBeGreaterThan(0);
+    expect(countOutput['bca']).toBeGreaterThan(0);
+    expect(countOutput['cab']).toBeGreaterThan(0);
+    expect(countOutput['cba']).toBeGreaterThan(0);
+  });
+});
+
+// tests for validScrambles
+describe('validScrambles', () => {
+  test('returns array', () => {
+    expect(validScramble('abcd',2)).toEqual([]);
+  });
+  test('returns array of valid, unchecked word squares', () => {
+    const output = ['noor','roon'];
+    expect(validScramble('noor',2)).toEqual(expect.arrayContaining(output));
+  });
+})
+
+// tests for possibleWordArr
+describe('possibleWordArr', () => {
+  test('returns array', () => {
+    expect(possibleWordArr('xxxx',2)).toEqual([]);
+  });
+  test('returns array of possible words', () => {
+    expect(possibleWordArr('noor',2)).toEqual(['no','on','or']);
+  });
+  test('words returned are in dictionary', () => {
+    const output = possibleWordArr('noor',2)
+    expect(dictionary).toEqual(expect.arrayContaining(output));
+  });
+})
 
 // tests for basic word square construct
 describe('wordSquare', () => {
@@ -38,17 +89,3 @@ describe('wordSquare', () => {
     expect(validateWordSquare(invalidOutput)).toBe(false);
   });
 });
-
-// tests for possibleWordArr
-describe('possibleWordArr', () => {
-  test('returns array', () => {
-    expect(possibleWordArr('xxxx',2)).toEqual([]);
-  });
-  test('returns array of possible words', () => {
-    expect(possibleWordArr('noor',2)).toEqual(['no','on','or']);
-  });
-  test('words returned are in dictionary', () => {
-    const output = possibleWordArr('noor',2)
-    expect(dictionary).toEqual(expect.arrayContaining(output));
-  });
-})
