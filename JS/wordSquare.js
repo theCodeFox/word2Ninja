@@ -40,12 +40,24 @@ const scramble = (string) => {
 // array of valid scrambles
 const validScramble = (string,wordlength) => {
   let scrammbledArr = []
-  for(let i=0;i<1000;i++) {
-    const scrambled = scramble(string)
-    if(!scrammbledArr.includes(scrambled)) {
-      scrammbledArr.push(scrambled)
+  let usedChars = []
+  // find all permutations
+  const permute = (inputtedString) => {
+    let i
+    const letters = inputtedString.split('')
+    for(i = 0; i < letters.length; i++) {
+      let l = letters.splice(i, 1)
+      usedChars.push(l)
+      if (letters.length === 0)
+      scrammbledArr[scrammbledArr.length] = usedChars.join('')
+      permute(letters.join(''));
+      letters.splice(i, 0, l);
+      usedChars.pop();
     }
-  }
+    return scrammbledArr
+  };
+  permute(string)
+  console.log(scrammbledArr)
   const validSquares = scrammbledArr.filter((letters) => {
     const splitLetters = letters.split('')
     const wordArr = splitLetters.map((letter,i) => {
@@ -123,7 +135,7 @@ const wordSquare = (input='') => {
       return newLetter
     })
     const joinedWordSquare = wordArr.join('')
-
+    console.log(joinedWordSquare)
     return joinedWordSquare;
   }
   else {
