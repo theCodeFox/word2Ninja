@@ -7,12 +7,13 @@
 // S E N D
 // E N D S
 
-// dictionary
+// dictionary for valid words
 const fs = require('fs');
 const text = fs.readFileSync('./dictionary.txt').toString('utf-8');
 const dictionary = text.split('\n');
 
-// add \n at end of words in square
+// add \n at end of words in square so displays in a human readable forat in terminal
+// returns word square string with words split by \n
 const wordArr = (splitLetters,wordLength) => {
   const joinedWordSquare = splitLetters.map((letter,i) => {
     const newLetter = ((i+1)%wordLength === 0) && i+1 !== splitLetters.length ? letter.concat('\n') : letter;
@@ -23,6 +24,7 @@ const wordArr = (splitLetters,wordLength) => {
 
 
 // validate word square
+// returns true if given a string that makes a valid word square, else return false
 const validateWordSquare = (wordSquareString) => {
   const wordSquareArr = wordSquareString.split('\n');
   for(let i = 0;i < wordSquareArr.length;i++) {
@@ -36,8 +38,12 @@ const validateWordSquare = (wordSquareString) => {
 };
 
 // scramble
+// originally was a quick randomisation function, but was highly inefficient.
+// To attempt to make it more efficient, I created a recursive function to find permutations, but still caused memory error.
+// Now utilises "Heap's method". Still casing memory error, but much more efficient
+// next step to increase efficiency, will be to batch permutations
+// returns array of all possible permutations
 const scramble = (string) => {
-  // Heap's method instead of prev recursive method
   let permutation = string.split('');
   const len = permutation.length;
   const permutedArr = [permutation.slice()];
@@ -64,6 +70,9 @@ const scramble = (string) => {
 };
 
 // array of valid scrambles
+// check permutations against word square validation function
+// filter out any permutations that are not considered to be valid word squares
+// returns array of filtered word square permutations
 const validScramble = (string,wordLength) => {
   let scrammbledArr = scramble(string);
   const validSquares = scrammbledArr.filter((letters) => {
@@ -77,6 +86,10 @@ const validScramble = (string,wordLength) => {
 };
 
 // filter dictionary for all possible words
+// filters dictionary for words matching word square length
+// checks if each word is in filtered dictionary
+// filters out word square strings were not all words are in dictionary
+// returns array of word square solutions
 const possibleWordArr = (possibleScrambles,wordLength) => {
   const filteredDictionary = dictionary.filter(word => word.length === wordLength);
   const checkForRealWords = possibleScrambles.filter(letters => {
@@ -95,6 +108,9 @@ const possibleWordArr = (possibleScrambles,wordLength) => {
 };
 
 // main function
+// takes an input string in format "number characters". EG "2 abcd".
+// some basic error handling. Focused on happy path.
+// returns first word square solution as a string, with words split by \n so is human readable in terminal
 const wordSquare = (input='') => {
   // handles empty string
   if(input === '') {
@@ -130,6 +146,7 @@ const wordSquare = (input='') => {
   };
 };
 
+// exports functions so can be built in TDD style
 module.exports = {
   wordSquare,
   possibleWordArr,

@@ -59,6 +59,9 @@ describe('wordSquare', () => {
   });
 });
 
+
+// these are currently marked as "skip" as causing memory error.
+// !Increase efficiency in scramble function!
 // test input: 4 aaccdeeeemmnnnoo
 describe.skip('test input 1', () => {
   const input = '4 aaccdeeeemmnnnoo';
