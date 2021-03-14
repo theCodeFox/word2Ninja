@@ -8,7 +8,8 @@
 # E N D S
 
 # scramble string
-# returns all permutations of given string
+# returns all permutations of given string in a set
+# changed to set output to avoid dupes and make more efficient
 def scramble(stringInput):
     if len(stringInput) <= 1:
         return {stringInput}
@@ -19,3 +20,13 @@ def scramble(stringInput):
             scrambledLetters.append(l + permutation)
     return set(scrambledLetters)
 
+# validates that string input would make a valid word square based off word length
+# returns true if inputted string is valid
+# returns false if inputted string is invalid
+def validateWordSquare(stringInput,wordLength):
+    wordSplit = [ stringInput[i:i+wordLength] for i in range(0, len(stringInput), wordLength) ]
+    for i,word in enumerate(wordSplit):
+        for j,letter in enumerate(word):
+            if wordSplit[i][j] != wordSplit[j][i]:
+                return False
+    return True
