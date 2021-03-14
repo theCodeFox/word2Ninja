@@ -11,10 +11,11 @@
 # returns all permutations of given string
 def scramble(stringInput):
     if len(stringInput) <= 1:
-        return [stringInput]
+        return {stringInput}
 
     scrambledLetters = []
     for l in stringInput:
         for permutation in scramble(stringInput.replace(l,'',1)):
             scrambledLetters.append(l + permutation)
-    return list(scrambledLetters)
+    return set(scrambledLetters)
+
