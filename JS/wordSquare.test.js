@@ -3,8 +3,7 @@ const {
   possibleWordArr,
   validateWordSquare,
   scramble,
-  validScramble,
-  dictionary
+  validScramble
 } = require('./wordSquare');
 
 
@@ -63,7 +62,9 @@ describe('wordSquare', () => {
 // test input: 4 aaccdeeeemmnnnoo
 describe.skip('test input 1', () => {
   const input = '4 aaccdeeeemmnnnoo';
-  const output = ''
+  const output = 'moan\nonce\nacme\nneed';
+  // display in terminal
+  console.log(wordSquare(input));
   test('returns output', () => {
     expect(wordSquare(input)).toBe(output);
   });
@@ -71,7 +72,9 @@ describe.skip('test input 1', () => {
 // test input: 5 aaaeeeefhhmoonssrrrrttttw
 describe.skip('test input 1', () => {
   const input = '5 aaaeeeefhhmoonssrrrrttttw';
-  const output = ''
+  const output = 'feast\nearth\narmor\nstone\nthrew';
+  // display in terminal
+  console.log(wordSquare(input));
   test('returns output', () => {
     expect(wordSquare(input)).toBe(output);
   });
@@ -79,7 +82,9 @@ describe.skip('test input 1', () => {
 // test input: 5 aabbeeeeeeeehmosrrrruttvv
 describe.skip('test input 1', () => {
   const input = '5 aabbeeeeeeeehmosrrrruttvv';
-  const output = ''
+  const output = 'heart\nember\nabove\nrevue\ntrees';
+  // display in terminal
+  console.log(wordSquare(input));
   test('returns output', () => {
     expect(wordSquare(input)).toBe(output);
   });
@@ -87,7 +92,9 @@ describe.skip('test input 1', () => {
 // test input: 7 aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy
 describe.skip('test input 1', () => {
   const input = '7 aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy';
-  const output = ''
+  const output = 'bravado\nrenamed\nanalogy\nvaluers\namoebas\ndegrade\nodyssey';
+  // display in terminal
+  console.log(wordSquare(input));
   test('returns output', () => {
     expect(wordSquare(input)).toBe(output);
   });
