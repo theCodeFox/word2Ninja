@@ -57,14 +57,10 @@ describe('validScrambles', () => {
 // tests for possibleWordArr
 describe('possibleWordArr', () => {
   test('returns array', () => {
-    expect(possibleWordArr('xxxx',2)).toEqual([]);
+    expect(possibleWordArr(['xxxx'],2)).toEqual([]);
   });
-  test('returns array of possible words', () => {
-    expect(possibleWordArr('noor',2)).toEqual(['no','on','or']);
-  });
-  test('words returned are in dictionary', () => {
-    const output = possibleWordArr('noor',2)
-    expect(dictionary).toEqual(expect.arrayContaining(output));
+  test('returns array of possible word squares', () => {
+    expect(possibleWordArr(['noor','roon'],2)).toEqual(['noor']);
   });
 })
 
@@ -73,19 +69,17 @@ describe('wordSquare', () => {
   test('returns string', () => {
     expect(wordSquare()).toBe('');
   });
-  test('returns string containing given letters', () => {
-    expect(wordSquare('1 a')).toBe('a');
-  });
   test('returns letters if letters amount of letters given are second arg squared', () => {
     expect(wordSquare('2 onno')).toBe('on\nno');
   });
   test('returns error if incorrect number of letters given', () => {
     expect(wordSquare('2 onnoo')).toBe('You have requested a word square 2x2. Please enter 4 letters.');
+    expect(wordSquare('1 a')).toBe('Word squares must be a minimum of 2x2.');
   });
   test('output is valid word square', () => {
     const validOutput = wordSquare('2 noor');
     const invalidOutput = wordSquare('2 abcd');
     expect(validateWordSquare(validOutput)).toBe(true);
-    expect(validateWordSquare(invalidOutput)).toBe(false);
+    expect(invalidOutput).toBe('No valid word square. Please try some different letters.');
   });
 });
