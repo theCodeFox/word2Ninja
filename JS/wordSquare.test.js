@@ -10,31 +10,12 @@ const {
 
 // tests for scramble
 describe('scramble', () => {
-  test('returns string', () => {
-    expect(scramble('')).toEqual('');
-  });
   test('returns string of same length as input', () => {
     expect(scramble('a').length).toEqual(1);
   });
   test('returns random string', () => {
-    let countOutput = {
-      'abc':0,
-      'acb':0,
-      'bac':0,
-      'bca':0,
-      'cab':0,
-      'cba':0
-    };
-    for(let i=0;i<1000;i++) {
-      const scrambled = scramble('abc')
-      countOutput[scrambled]++
-    }
-    expect(countOutput['abc']).toBeGreaterThan(0);
-    expect(countOutput['acb']).toBeGreaterThan(0);
-    expect(countOutput['bac']).toBeGreaterThan(0);
-    expect(countOutput['bca']).toBeGreaterThan(0);
-    expect(countOutput['cab']).toBeGreaterThan(0);
-    expect(countOutput['cba']).toBeGreaterThan(0);
+    let output = ['abc','acb','bac','bca','cab','cba'];
+    expect(scramble('abc')).toEqual(expect.arrayContaining(output));
   });
 });
 

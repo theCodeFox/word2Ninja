@@ -10,7 +10,17 @@
 // dictionary
 const fs = require('fs');
 const text = fs.readFileSync('./dictionary.txt').toString('utf-8');
-const dictionary = text.split('\n')
+const dictionary = text.split('\n');
+
+// add \n at end of words in square
+const wordArr = (splitLetters,wordLength) => {
+  const joinedWordSquare = splitLetters.map((letter,i) => {
+    const newLetter = ((i+1)%wordLength === 0) && i+1 !== splitLetters.length ? letter.concat('\n') : letter;
+    return newLetter;
+  }).join('');
+  return joinedWordSquare;
+};
+
 
 // validate word square
 const validateWordSquare = (wordSquareString) => {
@@ -18,130 +28,107 @@ const validateWordSquare = (wordSquareString) => {
   for(let i = 0;i < wordSquareArr.length;i++) {
     for(let j = 0;j < wordSquareArr[i].length;j++) {
       if(wordSquareArr[i][j] !== wordSquareArr[j][i]) {
-        return false
-      }
-    }
-  }
-  return true
-}
+        return false;
+      };
+    };
+  };
+  return true;
+};
 
 // scramble
 const scramble = (string) => {
-  let stringArr = string.split('')
-  for(let i = stringArr.length - 1;i > 0;i--) {
-    let j = Math.floor(Math.random() * (i + 1))
-    let swap = stringArr[i]
-    stringArr[i] = stringArr[j]
-    stringArr[j] = swap
-  }
-  return stringArr.join('')
-}
+  // Heap's method instead of prev recursive method
+  let permutation = string.split('');
+  const len = permutation.length;
+  const permutedArr = [permutation.slice()];
+  const c = new Array(len).fill(0);
+  let i = 1;
+  while (i < len) {
+    if (c[i] < i) {
+      let k = i % 2 && c[i];
+      let p = permutation[i];
+      permutation[i] = permutation[k];
+      permutation[k] = p;
+      ++c[i];
+      i = 1;
+      permutedArr.push(permutation.slice());
+    } else {
+      c[i] = 0;
+      ++i;
+    };
+  };
+  const result = permutedArr.map(arr => {
+    return arr.join('');
+  });
+  return result;
+};
 
 // array of valid scrambles
-const validScramble = (string,wordlength) => {
-  let scrammbledArr = []
-  let usedChars = []
-  // find all permutations
-  const permute = (inputtedString) => {
-    let i
-    const letters = inputtedString.split('')
-    for(i = 0; i < letters.length; i++) {
-      let l = letters.splice(i, 1)
-      usedChars.push(l)
-      if (letters.length === 0)
-      scrammbledArr[scrammbledArr.length] = usedChars.join('')
-      permute(letters.join(''));
-      letters.splice(i, 0, l);
-      usedChars.pop();
-    }
-    return scrammbledArr
-  };
-  permute(string)
-  console.log(scrammbledArr)
+const validScramble = (string,wordLength) => {
+  let scrammbledArr = scramble(string);
   const validSquares = scrammbledArr.filter((letters) => {
-    const splitLetters = letters.split('')
-    const wordArr = splitLetters.map((letter,i) => {
-      const newLetter = ((i+1)%wordlength === 0) && i+1 !== splitLetters.length
-        ? letter.concat('\n')
-        : letter
-      return newLetter
-    })
-    const joinedWordSquare = wordArr.join('')
+    const splitLetters = letters.split('');
+    const joinedWordSquare = wordArr(splitLetters,wordLength);
     if(validateWordSquare(joinedWordSquare)) {
-      // console.log(joinedWordSquare,'slash n still present')
-      return joinedWordSquare
-    }
-  })
-  // console.log(validSquares,'<---slash n disappeared???')
-  return validSquares
-}
+      return joinedWordSquare;
+    };
+  });
+  return validSquares;
+};
 
 // filter dictionary for all possible words
 const possibleWordArr = (possibleScrambles,wordLength) => {
-  const filteredDictionary = dictionary.filter(word => word.length === wordLength)
+  const filteredDictionary = dictionary.filter(word => word.length === wordLength);
   const checkForRealWords = possibleScrambles.filter(letters => {
-    const splitLetters = letters.split('')
-    const wordArr = splitLetters.map((letter,i) => {
-      const newLetter = ((i+1)%wordLength === 0) && i+1 !== splitLetters.length
-        ? letter.concat('\n')
-        : letter
-      return newLetter
-    }).join('')
-    const validateWords = wordArr.split('\n').filter(word => {
+    const splitLetters = letters.split('');
+    const joinedWordSquare = wordArr(splitLetters,wordLength);
+    const validateWords = joinedWordSquare.split('\n').filter(word => {
       if(filteredDictionary.includes(word)) {
-        return word
-      }
-    })
+        return word;
+      };
+    });
     if(validateWords.length === wordLength) {
-      return validateWords
-    }
-  })
-  return checkForRealWords
-}
+      return validateWords;
+    };
+  });
+  return checkForRealWords;
+};
 
 // main function
 const wordSquare = (input='') => {
   // handles empty string
   if(input === '') {
-    return ''
-  }
+    return '';
+  };
 
   // split input into necessary components
-  const wordLength = parseInt(input.split(' ')[0])
-  const letters = input.replace(/[^a-zA-Z]/g,'')
+  const wordLength = parseInt(input.split(' ')[0]);
+  const letters = input.replace(/[^a-zA-Z]/g,'');
 
   // basic error handling
   if(letters.length !== wordLength*wordLength) {
-    return `You have requested a word square ${wordLength}x${wordLength}. Please enter ${wordLength*wordLength} letters.`
-  }
+    return `You have requested a word square ${wordLength}x${wordLength}. Please enter ${wordLength*wordLength} letters.`;
+  };
   if(wordLength === 1) {
-    return 'Word squares must be a minimum of 2x2.'
-  }
+    return 'Word squares must be a minimum of 2x2.';
+  };
 
   // scrambles letters and validates them as potential word squares
-  const possibleScrambles = validScramble(letters,wordLength)
+  const possibleScrambles = validScramble(letters,wordLength);
 
   // validates word squares are made up of valid words
-  const validatedWordSquares = possibleWordArr(possibleScrambles,wordLength)
+  const validatedWordSquares = possibleWordArr(possibleScrambles,wordLength);
 
-  // checks for valid word squares
+  // checks for valid word squares in case there are none!
   if(validatedWordSquares.length > 0) {
     // chooses first one and makes human readable
-    const splitLetters = validatedWordSquares[0].split('')
-    const wordArr = splitLetters.map((letter,i) => {
-      const newLetter = ((i+1)%wordLength === 0) && i+1 !== splitLetters.length
-        ? letter.concat('\n')
-        : letter
-      return newLetter
-    })
-    const joinedWordSquare = wordArr.join('')
-    console.log(joinedWordSquare)
+    const splitLetters = validatedWordSquares[0].split('');
+    const joinedWordSquare = wordArr(splitLetters,wordLength);
     return joinedWordSquare;
-  }
-  else {
-    return 'No valid word square. Please try some different letters.'
-  }
-}
+  } else {
+    return 'No valid word square. Please try some different letters.';
+  };
+};
 
 module.exports = {
   wordSquare,
