@@ -34,7 +34,7 @@ JavaScript soltion is stored in the JS directory.
 3. "npm i" will install needed version of Jest
 4. "npm run test" will run test suite, inc last 4 set tests
 
-### ___Note__: current solution works for word squares of 2 & 3, but runs out of memorory at 4 or above. Looking at increasing efficiency via batching permutations. Once efficiency is increased so will run final tests, look at reading dictionary at http source via ajax._
+___Note__: current solution works for word squares of 2 & 3, but runs out of memorory at 4 or above. Looking at increasing efficiency via batching permutations. Once complete, uncomment console.log()s in wordSquare.test.js so test outcomes will appear in human format printing in terminal. Once efficiency is increased so will run final tests, look at reading dictionary at http source via ajax._
 
 ---
 
@@ -48,4 +48,4 @@ Python soltion is stored in the Python directory.
 1. open your command line terminal
 2. cd into Python directory
 
-### ___Note__: ???_
+___Note__: ???_

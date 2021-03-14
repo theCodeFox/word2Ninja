@@ -9,7 +9,7 @@
 
 // dictionary for valid words
 const fs = require('fs');
-const text = fs.readFileSync('./dictionary.txt').toString('utf-8');
+const text = fs.readFileSync('../dictionary.txt').toString('utf-8');
 const dictionary = text.split('\n');
 
 // add \n at end of words in square so displays in a human readable forat in terminal

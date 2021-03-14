@@ -67,7 +67,7 @@ describe.skip('test input 1', () => {
   const input = '4 aaccdeeeemmnnnoo';
   const output = 'moan\nonce\nacme\nneed';
   // display in terminal
-  console.log(wordSquare(input));
+  // console.log(wordSquare(input));
   test('returns output', () => {
     expect(wordSquare(input)).toBe(output);
   });
@@ -77,7 +77,7 @@ describe.skip('test input 1', () => {
   const input = '5 aaaeeeefhhmoonssrrrrttttw';
   const output = 'feast\nearth\narmor\nstone\nthrew';
   // display in terminal
-  console.log(wordSquare(input));
+  // console.log(wordSquare(input));
   test('returns output', () => {
     expect(wordSquare(input)).toBe(output);
   });
@@ -87,7 +87,7 @@ describe.skip('test input 1', () => {
   const input = '5 aabbeeeeeeeehmosrrrruttvv';
   const output = 'heart\nember\nabove\nrevue\ntrees';
   // display in terminal
-  console.log(wordSquare(input));
+  // console.log(wordSquare(input));
   test('returns output', () => {
     expect(wordSquare(input)).toBe(output);
   });
@@ -97,7 +97,7 @@ describe.skip('test input 1', () => {
   const input = '7 aaaaaaaaabbeeeeeeedddddggmmlloooonnssssrrrruvvyyy';
   const output = 'bravado\nrenamed\nanalogy\nvaluers\namoebas\ndegrade\nodyssey';
   // display in terminal
-  console.log(wordSquare(input));
+  // console.log(wordSquare(input));
   test('returns output', () => {
     expect(wordSquare(input)).toBe(output);
   });
