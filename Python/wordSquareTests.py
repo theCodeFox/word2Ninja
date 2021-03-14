@@ -1,10 +1,18 @@
 import unittest
 from wordSquare import *
 
-class MyFirstTests(unittest.TestCase):
+class ScrambleTests(unittest.TestCase):
 
-    def test_hello(self):
-        self.assertEqual(hello_world(),'hello world')
+    # returns list
+    def test_isList(self):
+        self.assertEqual(scramble(''),[''])
+
+    # returns strings in list containing only inputted letters
+    def test_isPermutation(self):
+        self.assertEqual(scramble('a'),['a'])
+        self.assertEqual(scramble('ab'),['ab','ba'])
+        self.assertEqual(scramble('abc'),['abc','acb','bac','bca','cab','cba'])
+        
 
 if __name__ == '__main__':
     unittest.main()

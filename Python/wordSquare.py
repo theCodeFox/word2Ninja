@@ -7,5 +7,14 @@
 # S E N D
 # E N D S
 
-def hello_world():
-    return 'hello world'
+# scramble string
+# returns all permutations of given string
+def scramble(stringInput):
+    if len(stringInput) <= 1:
+        return [stringInput]
+
+    scrambledLetters = []
+    for l in stringInput:
+        for permutation in scramble(stringInput.replace(l,'',1)):
+            scrambledLetters.append(l + permutation)
+    return list(scrambledLetters)
