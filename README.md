@@ -47,5 +47,6 @@ Python soltion is stored in the Python directory.
 ### __To Run__:
 1. open your command line terminal
 2. cd into Python directory
+3. "python wordSquareTests.py" in terminal will run test suite, inc last 4 set tests
 
-___Note__: ???_
+___Note__: currently under construction_

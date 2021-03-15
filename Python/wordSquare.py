@@ -7,6 +7,18 @@
 # S E N D
 # E N D S
 
+# needed for the url request
+from urllib.request import urlopen
+
+# fetches valid word square words from provided url
+# as of python 3.5, returned values are in bytes so must be decoded before being treated like strings
+def dictionary():
+    # words = open('../dictionary.txt','r').read()
+    with urlopen('http://norvig.com/ngrams/enable1.txt') as w:
+        words = w.read().decode('utf-8')
+    wordList = words.split('\n')
+    return wordList
+
 # scramble string
 # returns all permutations of given string in a set
 # changed to set output to avoid dupes and make more efficient
@@ -30,3 +42,12 @@ def validateWordSquare(stringInput,wordLength):
             if wordSplit[i][j] != wordSplit[j][i]:
                 return False
     return True
+
+# validate words making valid word square are valid words
+# cross checks words against dictionary
+def validateWords(stringInput,wordLength):
+    validWords = []
+    wordSplit = [ stringInput[i:i+wordLength] for i in range(0, len(stringInput), wordLength) ]
+    overlap = set(wordSplit).intersection(dictionary())
+    comparrison = bool(len(overlap) == wordLength)
+    return comparrison
