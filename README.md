@@ -20,6 +20,14 @@ E N D S
 
 ---
 
+### __Instructions to clone repo__
+
+1. go to "https://github.com/theCodeFox/word2Ninja"
+2. navigate to directory in terminal where you would be happy to store challenge
+3. run "git clone https://github.com/theCodeFox/word2Ninja.git"
+
+---
+
 ## __JS__
 JavaScript soltion is stored in the JS directory.
 
@@ -49,4 +57,4 @@ Python soltion is stored in the Python directory.
 2. cd into Python directory
 3. "python wordSquareTests.py" in terminal will run test suite, inc last 4 set tests
 
-___Note__: currently under construction_
+___Note__: current solution works for word squares up to 5 but runs out of memory for final test. Once efficiency is increased so will run final test, uncomment out last test. Last group of tests are currently skipped so other tests will run without causing too much slow down_

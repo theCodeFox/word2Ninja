@@ -12,6 +12,7 @@ from urllib.request import urlopen
 
 # fetches valid word square words from provided url
 # as of python 3.5, returned values are in bytes so must be decoded before being treated like strings
+# more efficent to utilise the one in top level, but won't update...
 def dictionary():
     # words = open('../dictionary.txt','r').read()
     with urlopen('http://norvig.com/ngrams/enable1.txt') as w:
@@ -51,3 +52,34 @@ def validateWords(stringInput,wordLength):
     overlap = set(wordSplit).intersection(dictionary())
     comparrison = bool(len(overlap) == wordLength)
     return comparrison
+
+# insert \n for human readable line breaks
+def insertLineBreak(stringInput, wordLength):
+    lines = []
+    for i in range(0, len(stringInput), wordLength):
+        lines.append(stringInput[i:i+wordLength])
+    square = '\n'.join(lines)
+    return square
+
+# utilises above functions to take in input in format "2 abcd"
+# output will be a word square as a string of words split by \n so is human readable when printed in the console
+def wordSquare(stringInput):
+    splitInput = stringInput.split()
+    if len(splitInput) != 2:
+        return 'Invalid input'
+    wordLength = int(splitInput[0])
+    wordSquareString = str(splitInput[1]).lower()
+    if len(wordSquareString) != wordLength*wordLength:
+        return 'Invalid input'
+    # find those permutations
+    scrambles = scramble(wordSquareString)
+    # validate the permutations
+    validScrambles = []
+    for square in scrambles:
+        if validateWordSquare(square,wordLength):
+            if validateWords(square,wordLength):
+                readableSquare = insertLineBreak(square,wordLength)
+                validScrambles.append(readableSquare)
+    if len(validScrambles) == 0:
+        return 'No valid word squares!'
+    return validScrambles[0]
