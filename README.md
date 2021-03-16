@@ -57,4 +57,4 @@ Python soltion is stored in the Python directory.
 2. cd into Python directory
 3. "python wordSquareTests.py" in terminal will run test suite, inc last 4 set tests
 
-___Note__: current solution works for word squares up to 5 but runs out of memory for final test. Once efficiency is increased so will run final test, uncomment out last test. Last group of tests are currently skipped so other tests will run without causing too much slow down_
+___Note__: current solution works for word squares up to 5 but runs out of memory for final test. Once efficiency is increased so will run final test, uncomment out last test. To look at filtering dictionary and reducing to single call only. Also look to increase efficiency on scramble function. Last group of tests are currently skipped so other tests will run without causing too much slow down_
