@@ -4,3 +4,4 @@ JS/node_modules
 # ignore py cache files
 __pycache__/
 *.pyc
+node_modules
